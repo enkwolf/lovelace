@@ -483,7 +483,6 @@ def file_exercise_evaluation(request, course, instance, content, revision, task_
     if task is None:
         task = AsyncResult(task_id)
     evaluation_id = task.get()
-    task.forget() # TODO: IMPORTANT! Also forget all the subtask results somehow? in tasks.py?
     evaluation_obj = Evaluation.objects.get(id=evaluation_id)
     answer_count = content.get_user_answers(content, request.user, instance).count()
     answer_count_str = get_answer_count_meta(answer_count)
@@ -533,7 +532,7 @@ def compile_evaluation_data(request, evaluation_tree, evaluation_obj, context=No
         for run in test["runs"]:
             for output in run["output"]:
                 output["msg"] = "".join(markupparser.MarkupParser.parse(output["msg"], request, context)).strip()
-    
+
     debug_json = json.dumps(evaluation_tree, indent=4)
 
     hints = ["".join(markupparser.MarkupParser.parse(msg, request, context)).strip()
@@ -559,7 +558,6 @@ def compile_evaluation_data(request, evaluation_tree, evaluation_obj, context=No
         'hints': hints,
         'triggers': triggers,
     }
-    
     return data
     
 # TODO: figure out a way to change this to use decorators

@@ -157,6 +157,7 @@ function exercise_success(data, result_div, error_div, form_parent) {
         var context = result_div.parent();
         poll_progress(data.redirect, context);
     }
+    
     result_div.css("display", "block");
 }
 
@@ -192,6 +193,7 @@ function poll_progress(url, context) {
     }, 100);
 }
 
+
 // TODO: WebSockets – migrate to Django Channels
 
 // http://stackoverflow.com/questions/7335780/how-to-post-a-django-form-with-ajax-jquery
@@ -214,7 +216,8 @@ function add_exercise_form_callbacks() {
             
             var submit_element = form_parent.find(":submit");
             submit_element.prop("disabled", true);
-
+            
+            
             // TODO: Use xhr and progressevent to measure upload progress
 
             $.ajax({

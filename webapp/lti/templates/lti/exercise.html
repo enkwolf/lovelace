@@ -1,10 +1,6 @@
 {% load i18n %}
 {% load course_tags %}
 
-{% if user.is_active %}
-  {% content_meta %}
-{% endif %}
-
 {% if rendered_content %}
   {{ rendered_content|safe }}
 {% endif %}
@@ -26,11 +22,11 @@
   </div>
   
   <form id="{{ content_slug }}-form" class="exercise-form" method="POST" enctype="multipart/form-data"
-        {% if revision and not sandboxed%}action="{% url 'courses:check' course instance content revision %}"
+        {% if revision and not sandboxed%}action="{% url 'lovelace_lti:check' course instance content revision %}"
         {% comment %}
             {% elif sandboxed %}action="{% url 'courses:check_sandboxed' content.slug %}"
         {% endcomment %}
-        {% else %}action="{% url 'courses:check' course instance content "head" %}"{% endif %}>
+        {% else %}action="{% url 'lovelace_lti:check' course instance content "head" %}"{% endif %}>
     
     {% csrf_token %}
     {% if question %}{{ question|safe }}{% endif %}
@@ -38,17 +34,7 @@
     {% block exercise-form %}
     {% endblock %}
 
-    {% if enrolled or course_staff %}
-      <input type="submit" name="submit" value="{% trans 'Send answer' %}">
-    {% else %}
-      <input type="submit" name="submit" value="{% trans 'Send answer' %}" disabled>
-    {% endif %}
-    
-    {% if not user.is_authenticated %}
-      <div class="auth-warning">{% trans "Warning: You have not logged in. You cannot answer." %}</div>
-    {% elif not enrolled and not course_staff %}
-      <div class="auth-warning">{% trans "Warning: You have not enrolled to this course instance. You cannot answer." %}</div>
-    {% endif %}
+    <input type="submit" name="submit" value="{% trans 'Send answer' %}">
     
     {% if evaluation == "unanswered" %}
       <div class="answered-status"></div>

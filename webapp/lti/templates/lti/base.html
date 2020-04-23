@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    
+    {% load staticfiles %}
+    
+    <title>Lovelace LTI - Test Assignment</title>
+    <link rel="stylesheet" href="{% static 'courses/style.css' %}">
+    <script src="{% static 'courses/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'courses/embedded-file.js' %}"></script>
+    <script src="{% static 'courses/script.js' %}"></script>
+    <script src="{% static 'courses/exercise.js' %}"></script>
+    <script>
+      $(document).ready(function() {
+        // TODO: Store data in a js object
+        add_line_numbers();
+        set_line_widths();
+
+        add_exercise_form_callbacks();
+
+        // Apply KaTeX to render all the math blocks
+        $("div.tex").each(function(index) {
+          katex.render($(this).text(), this);
+        });
+
+        //$(window).on('DOMContentLoaded load resize scroll', handler);
+      });
+    </script>
+    
+</head>
+
+<body>
+  <div id="container">
+    <section class="content">
+      {% block revision-info %}
+      {% endblock %}
+      {% block page-content %}
+      {% endblock %}
+    </section>
+  <div>
+</body>
+</html>

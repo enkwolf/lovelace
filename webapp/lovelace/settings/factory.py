@@ -48,6 +48,8 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'courses',
+    'lti_provider',
+    'lti',
     'stats',
     'feedback',
     'exercise_admin',

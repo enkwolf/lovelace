@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^admin/courses/fileuploadexercise/(?P<exercise_id>\d+)/change', RedirectView.as_view(pattern_name='exercise_admin:file_upload_change')),
     url(r'^admin/', admin.site.urls),
     url(r'^exercise-admin/', include('exercise_admin.urls', namespace="exercise_admin")),
+    url(r'^lti/', include('lti_provider.urls', namespace="lti_provider")),
+    url(r'^lti-assignments/', include('lti.urls', namespace="lovelace_lti")),
     url(r'^stats/', include('stats.urls', namespace="stats")),
     url(r'^feedback/', include('feedback.urls', namespace="feedback")),
     url(r'^i18n/', include('django.conf.urls.i18n')),
